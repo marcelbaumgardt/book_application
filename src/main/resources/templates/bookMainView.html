@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    <div align="center">
+    <h1>Books by category</h1>
+        <!--<div class="col-md-5" >-->
+        <select id="selectbasic" name="selectbasic" class="form-control" th:align="center" th:onchange="displayCategory()" >
+        <option th:each="category : ${categorys}"  th:text="*{category}"></option>
+        <!--<option value="1">888</option>-->
+        <!--<option value="2">243</option>-->
+        </select>
+        <!--</div>-->
+    </div>
+</div>
+    <!--th:if="${book.pageCount}==10"-->
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"   th:each="book: ${books}" th:object="${book}">
+    <div class="box-part text-center">
+        <img th:src="*{thumbnailUrl}" th:width="200" th:height="200">
+        <div class="title">
+            <h4 th:text="*{title}"></h4>
+            <span th:text="*{pageCount}"></span>
+        </div>
+        <div class="text">
+        </div>
+        <a th:href="*{previewLink}">More info</a>
+    </div>
+</div>
+
+<script>
+    function displayCategory() {
+        var selectListValue=document.getElementById("selectbasic")
+        var pages = selectListValue.options[selectListValue.selectedIndex].text;
+        var integer = parseInt(pages, 10);
+        document.getElementById("demo").innerHTML = integer;
+        console.log(integer);
+    }
+</script>
+
+</body>
+</html>

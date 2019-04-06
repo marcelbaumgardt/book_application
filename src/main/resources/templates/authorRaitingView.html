@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<body>
+
+<div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Raiting</th>
+        </tr>
+        </thead>
+        <tr th:each="raiting: ${raitings}" >
+            <td th:text="${raiting.key}">1</td>
+            <td th:text="${raiting.value}">Date</td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>
