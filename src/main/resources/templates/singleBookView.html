@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" th:object="${book}">
+    <div class="box-part text-center">
+        <img th:src="*{thumbnail}" th:width="200" th:height="200">
+        <div class="title">
+            <span th:text="*{isbn}"></span><br>
+            <h4 th:text="*{title}"></h4><br>
+            <span th:text="*{subtitle}"></span><br>
+            <span th:text="*{publisher}"></span><br>
+            <span th:text="*{publishedDate}"></span><br>
+            <span th:text="*{description}"></span><br>
+            <span th:text="*{pageCount}"></span><br>
+            <span th:text="*{language}"></span><br>
+            <span th:text="*{averageRating}"></span><br>
+            <span th:each="author: *{authors}" th:text="${author}"></span><br>
+            <span th:each="categorie: *{categories}" th:text="${categorie}"></span><br>
+        </div>
+        <div class="text">
+        </div>
+        <a th:href="*{previewLink}">More info</a>
+    </div>
+</div>
+
+</body>
+</html>
