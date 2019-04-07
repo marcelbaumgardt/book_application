@@ -12,24 +12,19 @@
 
 </head>
 <body>
-
-    <div align="center">
-    <h1>Books by category</h1>
-        <select id="selectbasic" name="selectbasic" class="form-control" th:align="center" th:onchange="displayBooks()" >
-        <option th:each="category : ${categories}" th:text="*{category}" th:value="*{category}">
-        </option>
-        </select>
-    </div>
+    <ul class="nav nav-tabs">
+        <li th:each="category : ${categories}" ><a th:href="@{'/books/' + ${category}}" th:text="${category}">Home</a></li>
+    </ul>
 </div>
-    <!--th:if="${book.pageCount}==10"-->
+<br>
+<br>
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"  th:if{} th:each="book: ${books}" th:object="${book}">
     <div class="box-part text-center">
         <img th:src="*{thumbnail}" th:width="200" th:height="200">
         <div class="title">
             <h4 th:text="*{title}"></h4>
             <span th:text="*{averageRating}"></span><br>
-            <!--<span th:text="${#dates.format(java.util.Date(book.publishedDate))}"></span><br>-->
-            <span th:text="*{publishedDate}"></span>
+            <span th:text="${#dates.format(new java.util.Date(book.publishedDate),'yyyy-MM-dd')}"></span>
         </div>
         <div class="text">
         </div>

@@ -17,6 +17,7 @@ import pl.marcelbaumgard.book_application.service.BookService;
 import java.util.*;
 
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -78,6 +79,44 @@ public class BookControllerTest {
     }
 
     /**
+     * Gets books by category.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void getBooksByCategory() throws Exception {
+        Book book=new Book();
+        String[] categories=new String[]{"cars"};
+        book.setCategories(categories);
+        List<Book> books = Arrays.asList(book);
+        Set<String> categoriesSet = new TreeSet<>();
+        when(bookService.getBooksByCategory("cars")).thenReturn(books);
+        when(bookService.getAllBooksCategories()).thenReturn(categoriesSet);
+
+        mockMvc.perform(get("/books/cars"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("bookMainView"))
+                .andExpect(model().attributeExists("books"))
+                .andExpect(model().attributeExists("categories"));
+    }
+
+    /**
+     * Book by categories not found exception.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void bookByCategoriesNotFoundException() throws Exception {
+
+        when(bookService.getBooksByCategory(anyString())).thenThrow(BookNotFoundException.class);
+
+        mockMvc.perform(get("/books/abcdefg"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("error404"));
+
+    }
+
+    /**
      * Gets book.
      *
      * @throws Exception the exception
@@ -124,13 +163,13 @@ public class BookControllerTest {
      * @throws Exception the exception
      */
     @Test
-    public void testUserNotFoundException() throws Exception {
+    public void bookNotFoundException() throws Exception {
 
-        when(bookService.getBook("123")).thenThrow(BookNotFoundException.class);
+        when(bookService.getBook(anyString())).thenThrow(BookNotFoundException.class);
 
         mockMvc.perform(get("/book/4"))
-                .andExpect(status().isFound())
-                .andExpect(view().name("redirect:/error"));
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("error404"));
 
     }
 }

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import pl.marcelbaumgard.book_application.model.Book;
 import pl.marcelbaumgard.book_application.service.BookService;
 
@@ -45,11 +44,28 @@ public class BookController {
      * @param category the category
      * @return the users
      */
+    @GetMapping(path = "/books/{category}")
+    public String getBooks(Model model, @PathVariable(value = "category", required = false) String category) {
+        List<Book> books = bookService.getBooksByCategory(category);
+        if(!books.isEmpty()) {
+            Set<String> booksCategories = bookService.getAllBooksCategories();
+            model.addAttribute("books", books);
+            model.addAttribute("categories", booksCategories);
+            return "bookMainView";
+        }else{
+            return "error404";
+        }
+    }
+
+    /**
+     * Gets books.
+     *
+     * @param model the model
+     * @return the books
+     */
     @GetMapping(path = "/books")
-    public String getUsers(Model model, @RequestParam(value = "category", required = false) String category) {
-        List<Book> books = category == null
-                ? bookService.getAllBooks()
-                : bookService.getBooksByCategory(category);
+    public String getBooks(Model model) {
+        List<Book> books =bookService.getAllBooks();
 
         Set<String> booksCategories = bookService.getAllBooksCategories();
 
@@ -75,7 +91,7 @@ public class BookController {
             model.addAttribute("book", book);
             return "singleBookView";
         } else {
-            return "redirect:/error";
+            return "error404";
         }
     }
 

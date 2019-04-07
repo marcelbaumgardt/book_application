@@ -36,9 +36,11 @@ public class BookService {
      * Add book.
      *
      * @param book the book
+     * @return the book
      */
-    public void addBook(Book book) {
+    public Book addBook(Book book) {
         bookRepository.save(book);
+        return book;
     }
 
     /**
