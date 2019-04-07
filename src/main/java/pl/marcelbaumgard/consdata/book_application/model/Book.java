@@ -17,30 +17,20 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown=true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
-    //private Map<String, String> industryIdentifiers = new HashMap<String, String>();
-    @JsonIgnore
     private String isbn;
     private String title;
     private String subtitle;
     private String publisher;
-    //TODO convert to timestamp
-    //@JsonFormat( shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd hh:mm:ss")
-    private String publishedDate;
+    private long publishedDate;
     @Column(columnDefinition="TEXT")
     private String description;
     private int pageCount;
-    //
-    @JsonIgnore
-    private String thumbnailUrl="https://podarunkowo.pl/6538-large_default/duza-ksiazka-na-alkohol-pan-tadeusz.jpg";
-//    private Map<String, String> imageLinks = new HashMap<String, String>();
+    private String thumbnail;
     private String language;
     private String previewLink;
     private double averageRating ;

@@ -2,6 +2,7 @@ package pl.marcelbaumgard.consdata.book_application.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.marcelbaumgard.consdata.book_application.errors.BookNotFoundException;
 import pl.marcelbaumgard.consdata.book_application.model.Book;
 import pl.marcelbaumgard.consdata.book_application.repository.BookRepository;
 
@@ -35,8 +36,8 @@ public class BookService {
     }
 
     public Book getBook(String isbn) {
-        Optional<Book> book = bookRepository.findByIsbn(isbn);
-        return book.get();
+        Book book = bookRepository.findByIsbn(isbn).orElseThrow(()->new BookNotFoundException());
+        return book;
 
     }
 

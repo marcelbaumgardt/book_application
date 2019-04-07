@@ -27,10 +27,11 @@
     <!--th:if="${book.pageCount}==10"-->
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"   th:each="book: ${books}" th:object="${book}">
     <div class="box-part text-center">
-        <img th:src="*{thumbnailUrl}" th:width="200" th:height="200">
+        <img th:src="*{thumbnail}" th:width="200" th:height="200">
         <div class="title">
             <h4 th:text="*{title}"></h4>
-            <span th:text="*{pageCount}"></span>
+            <span th:text="*{averageRating}"></span><br>
+            <span th:text="*{publishedDate}"></span>
         </div>
         <div class="text">
         </div>

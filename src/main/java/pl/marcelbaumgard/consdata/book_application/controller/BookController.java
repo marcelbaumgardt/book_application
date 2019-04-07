@@ -39,9 +39,15 @@ public class BookController {
         return "bookMainView";
     }
 
-    @GetMapping("/users/{isbn}")
-    public Book getUser(@PathVariable(required = false) String isbn){
-        return bookService.getBook(isbn);
+    @GetMapping(path = "/book/{isbn}")
+    public String getBook(@PathVariable(required = false) String isbn,Model model){
+        Book book = bookService.getBook(isbn);
+        if(book!=null) {
+            model.addAttribute("book", book);
+            return "singleBookView";
+        }else{
+            return "redirect:/error";
+        }
     }
 
     @GetMapping(path="/raiting")
