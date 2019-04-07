@@ -1,4 +1,4 @@
-package pl.marcelbaumgard.consdata.book_application.controller;
+package pl.marcelbaumgard.book_application.controller;
 
 
 import org.junit.Before;
@@ -9,9 +9,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.marcelbaumgard.consdata.book_application.errors.BookNotFoundException;
-import pl.marcelbaumgard.consdata.book_application.model.Book;
-import pl.marcelbaumgard.consdata.book_application.service.BookService;
+import pl.marcelbaumgard.book_application.errors.BookNotFoundException;
+import pl.marcelbaumgard.book_application.model.Book;
+import pl.marcelbaumgard.book_application.service.BookService;
 
 
 import java.util.*;
@@ -23,16 +23,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+/**
+ * The type Book controller test.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class BookControllerTest {
 
+    /**
+     * The Book service.
+     */
     @Mock
     BookService bookService;
+    /**
+     * The Book controller.
+     */
     @InjectMocks
     BookController bookController;
 
+    /**
+     * The Mock mvc.
+     */
     MockMvc mockMvc;
 
+    /**
+     * Sets up.
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -40,21 +57,31 @@ public class BookControllerTest {
 
     }
 
+    /**
+     * Gets books.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getBooks() throws Exception {
         List<Book> books = Arrays.asList(new Book(), new Book(), new Book());
-        Set<String> categorys = new TreeSet<>();
+        Set<String> categories = new TreeSet<>();
         when(bookService.getAllBooks()).thenReturn(books);
-        when(bookService.getAllBooksCategorys()).thenReturn(categorys);
+        when(bookService.getAllBooksCategories()).thenReturn(categories);
         mockMvc.perform(get("/books"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("bookMainView"))
                 .andExpect(model().attributeExists("books"))
-                .andExpect(model().attributeExists("categorys"));
+                .andExpect(model().attributeExists("categories"));
 
 
     }
 
+    /**
+     * Gets book.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getBook() throws Exception {
         Book book = new Book();
@@ -72,20 +99,30 @@ public class BookControllerTest {
 
     }
 
+    /**
+     * Gets ratings.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void getRaitings() throws Exception {
-        Map<String, LinkedList<Double>> raitings = new HashMap<>();
+    public void getRatings() throws Exception {
+        Map<String, LinkedList<Double>> ratings = new HashMap<>();
 
-        when(bookService.getRaitings()).thenReturn(raitings);
+        when(bookService.getRatings()).thenReturn(ratings);
 
-        mockMvc.perform(get("/raiting"))
+        mockMvc.perform(get("/rating"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("authorRaitingView"))
-                .andExpect(model().attributeExists("raitings"));
+                .andExpect(view().name("authorRatingView"))
+                .andExpect(model().attributeExists("ratings"));
 
 
     }
 
+    /**
+     * Test user not found exception.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUserNotFoundException() throws Exception {
 

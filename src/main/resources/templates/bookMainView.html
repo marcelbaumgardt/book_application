@@ -15,22 +15,20 @@
 
     <div align="center">
     <h1>Books by category</h1>
-        <!--<div class="col-md-5" >-->
-        <select id="selectbasic" name="selectbasic" class="form-control" th:align="center" th:onchange="displayCategory()" >
-        <option th:each="category : ${categorys}"  th:text="*{category}"></option>
-        <!--<option value="1">888</option>-->
-        <!--<option value="2">243</option>-->
+        <select id="selectbasic" name="selectbasic" class="form-control" th:align="center" th:onchange="displayBooks()" >
+        <option th:each="category : ${categories}" th:text="*{category}" th:value="*{category}">
+        </option>
         </select>
-        <!--</div>-->
     </div>
 </div>
     <!--th:if="${book.pageCount}==10"-->
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"   th:each="book: ${books}" th:object="${book}">
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"  th:if{} th:each="book: ${books}" th:object="${book}">
     <div class="box-part text-center">
         <img th:src="*{thumbnail}" th:width="200" th:height="200">
         <div class="title">
             <h4 th:text="*{title}"></h4>
             <span th:text="*{averageRating}"></span><br>
+            <!--<span th:text="${#dates.format(java.util.Date(book.publishedDate))}"></span><br>-->
             <span th:text="*{publishedDate}"></span>
         </div>
         <div class="text">
@@ -40,12 +38,19 @@
 </div>
 
 <script>
-    function displayCategory() {
-        var selectListValue=document.getElementById("selectbasic")
-        var pages = selectListValue.options[selectListValue.selectedIndex].text;
-        var integer = parseInt(pages, 10);
-        document.getElementById("demo").innerHTML = integer;
-        console.log(integer);
+    function displayBooks() {
+        var selectListValue=$("#selectbasic option:selected").text();
+        $.ajax({
+            url: '/books',
+            method: 'GET',
+            data: {
+                category: selectListValue
+            }
+
+        })
+            .done(function (data) {
+            $("#receiver").html(data);
+            })
     }
 </script>
 

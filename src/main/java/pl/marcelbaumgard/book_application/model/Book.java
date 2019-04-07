@@ -1,18 +1,16 @@
-package pl.marcelbaumgard.consdata.book_application.model;
+package pl.marcelbaumgard.book_application.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
 
+
+/**
+ * The type Book.
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,14 +24,14 @@ public class Book {
     private String title;
     private String subtitle;
     private String publisher;
-    private long publishedDate;
+    private Long publishedDate;
     @Column(columnDefinition="TEXT")
     private String description;
-    private int pageCount;
+    private Integer pageCount;
     private String thumbnail;
     private String language;
     private String previewLink;
-    private double averageRating ;
+    private Double averageRating ;
     private String[] authors;
     private String[] categories;
 

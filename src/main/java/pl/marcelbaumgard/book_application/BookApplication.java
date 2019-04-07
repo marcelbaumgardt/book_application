@@ -1,13 +1,19 @@
-package pl.marcelbaumgard.consdata.book_application;
+package pl.marcelbaumgard.book_application;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
+/**
+ * The type Book application.
+ */
 @SpringBootApplication
 public class BookApplication {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         SpringApplication.run(BookApplication.class, args);
     }
